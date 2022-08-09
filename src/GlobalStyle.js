@@ -35,6 +35,9 @@ export function GlobalStyle() {
           display: block;
           width: 100%;
         }
+        button {
+          cursor: pointer;
+        }
       `}
     />
   );
