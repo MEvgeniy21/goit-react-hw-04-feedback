@@ -2,36 +2,26 @@ import Notification from 'components/Notification';
 import PropTypes from 'prop-types';
 import { Title } from 'components/Section/Section.styled';
 import { TextStat, ValueStat } from './Statistics.styled';
+import { ucFirst } from 'utilities';
 
-export default function Statistics({
-  good,
-  neutral,
-  bad,
-  countTotalFeedback,
-  countPositiveFeedbackPercentage,
-}) {
-  const total = countTotalFeedback();
-
+export default function Statistics({ options, total, positivePercentage }) {
+  const stateKeys = Object.keys(options);
   return (
     <div>
       <Title>Statistics</Title>
       {total ? (
         <>
-          <TextStat>
-            Good:<ValueStat>{good}</ValueStat>
-          </TextStat>
-          <TextStat>
-            Neutral:<ValueStat>{neutral}</ValueStat>
-          </TextStat>
-          <TextStat>
-            Bad:<ValueStat>{bad}</ValueStat>
-          </TextStat>
+          {stateKeys.map(state => (
+            <TextStat key={state}>
+              {ucFirst(state)}:<ValueStat>{options[state]}</ValueStat>
+            </TextStat>
+          ))}
           <TextStat>
             Total:<ValueStat>{total}</ValueStat>
           </TextStat>
           <TextStat>
             Positive feedback:
-            <ValueStat>{countPositiveFeedbackPercentage()}%</ValueStat>
+            <ValueStat>{positivePercentage}%</ValueStat>
           </TextStat>
         </>
       ) : (
@@ -42,9 +32,11 @@ export default function Statistics({
 }
 
 Statistics.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-  countTotalFeedback: PropTypes.func.isRequired,
-  countPositiveFeedbackPercentage: PropTypes.func.isRequired,
+  options: PropTypes.exact({
+    good: PropTypes.number.isRequired,
+    neutral: PropTypes.number.isRequired,
+    bad: PropTypes.number.isRequired,
+  }).isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
 };

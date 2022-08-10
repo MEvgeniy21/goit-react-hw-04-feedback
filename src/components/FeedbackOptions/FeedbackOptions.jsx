@@ -1,18 +1,25 @@
 import PropTypes from 'prop-types';
 import { Box } from 'common/Box';
+import { ucFirst } from 'utilities';
 
-export default function FeedbackOptions({ onGood, onNeutral, onBad }) {
+export default function FeedbackOptions({ options, onLeaveFeedback }) {
+  const stateKeys = Object.keys(options);
   return (
     <Box pb={5} display="flex" alignItems="center" gridGap={3} ml={3}>
-      <button onClick={onGood}>Good</button>
-      <button onClick={onNeutral}>Neutral</button>
-      <button onClick={onBad}>Bad</button>
+      {stateKeys.map(state => (
+        <button onClick={() => onLeaveFeedback(state)} key={state}>
+          {ucFirst(state)}
+        </button>
+      ))}
     </Box>
   );
 }
 
 FeedbackOptions.propTypes = {
-  onGood: PropTypes.func.isRequired,
-  onNeutral: PropTypes.func.isRequired,
-  onBad: PropTypes.func.isRequired,
+  options: PropTypes.exact({
+    good: PropTypes.number.isRequired,
+    neutral: PropTypes.number.isRequired,
+    bad: PropTypes.number.isRequired,
+  }).isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
 };

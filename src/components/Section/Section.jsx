@@ -5,23 +5,19 @@ import { Title, FeedbackSection } from './Section.styled';
 
 export default function Section({
   title,
-  state: { good, neutral, bad },
-  onGood,
-  onNeutral,
-  onBad,
-  countTotalFeedback,
-  countPositiveFeedbackPercentage,
+  options,
+  onLeaveFeedback,
+  total,
+  positivePercentage,
 }) {
   return (
     <FeedbackSection>
       <Title>{title}</Title>
-      <FeedbackOptions onGood={onGood} onNeutral={onNeutral} onBad={onBad} />
+      <FeedbackOptions options={options} onLeaveFeedback={onLeaveFeedback} />
       <Statistics
-        good={good}
-        neutral={neutral}
-        bad={bad}
-        countTotalFeedback={countTotalFeedback}
-        countPositiveFeedbackPercentage={countPositiveFeedbackPercentage}
+        options={options}
+        total={total}
+        positivePercentage={positivePercentage}
       />
     </FeedbackSection>
   );
@@ -29,14 +25,8 @@ export default function Section({
 
 Section.propTypes = {
   title: PropTypes.string.isRequired,
-  state: PropTypes.exact({
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-  }).isRequired,
-  onGood: PropTypes.func.isRequired,
-  onNeutral: PropTypes.func.isRequired,
-  onBad: PropTypes.func.isRequired,
-  countTotalFeedback: PropTypes.func.isRequired,
-  countPositiveFeedbackPercentage: PropTypes.func.isRequired,
+  options: PropTypes.object.isRequired,
+  onLeaveFeedback: PropTypes.func.isRequired,
+  total: PropTypes.number.isRequired,
+  positivePercentage: PropTypes.number.isRequired,
 };
