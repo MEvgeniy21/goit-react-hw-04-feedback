@@ -2,6 +2,8 @@ import { Component } from 'react';
 import { GlobalStyle } from 'GlobalStyle';
 import { Box } from 'common/Box';
 import Section from 'components/Section';
+import FeedbackOptions from 'components/FeedbackOptions';
+import Statistics from 'components/Statistics';
 
 export class App extends Component {
   state = {
@@ -35,13 +37,21 @@ export class App extends Component {
           flexDirection="column"
           mt={5}
         >
-          <Section
-            title="Please leave feedback"
-            options={this.state}
-            onLeaveFeedback={this.handleState}
-            total={this.countTotalFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          />
+          <Box display="flex" alignItems="start" flexDirection="column">
+            <Section title="Please leave feedback">
+              <FeedbackOptions
+                options={this.state}
+                onLeaveFeedback={this.handleState}
+              />
+            </Section>
+            <Section title="Statistics">
+              <Statistics
+                options={this.state}
+                total={this.countTotalFeedback()}
+                positivePercentage={this.countPositiveFeedbackPercentage()}
+              />
+            </Section>
+          </Box>
         </Box>
       </>
     );
