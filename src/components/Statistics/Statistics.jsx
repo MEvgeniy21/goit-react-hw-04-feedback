@@ -30,11 +30,7 @@ export default function Statistics({ options, total, positivePercentage }) {
 }
 
 Statistics.propTypes = {
-  options: PropTypes.shape({
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-  }).isRequired,
+  options: PropTypes.objectOf(PropTypes.number).isRequired,
   total: PropTypes.number.isRequired,
   positivePercentage: PropTypes.number.isRequired,
 };
