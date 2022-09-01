@@ -15,10 +15,10 @@ export function App() {
   const [review, setReview] = useState(REVIEWS_INITIAL);
 
   const handleState = reviewKey => {
-    setReview({
-      ...review,
-      [reviewKey]: review[reviewKey] + 1,
-    });
+    setReview(prevState => ({
+      ...prevState,
+      [reviewKey]: prevState[reviewKey] + 1,
+    }));
   };
 
   const countTotalFeedback = () => {
